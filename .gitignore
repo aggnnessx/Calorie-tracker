@@ -1,5 +1,26 @@
-.DS_Store
-Thumbs.db
-*.log
+# Environment & secrets
+.env
+
+# Composer
+/vendor/
+
+# Uploads (папка остаётся, файлы игнорируются)
+/public/uploads/*
+!/public/uploads/.gitkeep
+!/public/uploads/foods/.gitkeep
+
+# IDE
 .idea/
 .vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+/logs/
+*.cache
+/tmp/
