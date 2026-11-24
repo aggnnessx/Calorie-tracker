@@ -12,15 +12,15 @@ $appName = $appName ?? ($_ENV['APP_NAME'] ?? 'UCA Calorie Tracker');
 $currentNav = $currentNav ?? '';
 
 $links = [
-    'menu' => ['label' => 'Menu', 'href' => '/'],
-    'diary' => ['label' => 'Diary', 'href' => '/diary'],
-    'goals' => ['label' => 'Goals', 'href' => '/goals'],
-    'weight' => ['label' => 'Weight', 'href' => '/weight'],
+    'menu' => ['label' => 'Menu', 'href' => url('/')],
+    'diary' => ['label' => 'Diary', 'href' => url('/diary')],
+    'goals' => ['label' => 'Goals', 'href' => url('/goals')],
+    'weight' => ['label' => 'Weight', 'href' => url('/weight')],
 ];
 ?>
 <header class="navbar">
     <div class="container navbar__inner">
-        <a class="navbar__brand" href="/"><?= htmlspecialchars($appName, ENT_QUOTES, 'UTF-8') ?></a>
+        <a class="navbar__brand" href="<?= htmlspecialchars(url('/'), ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($appName, ENT_QUOTES, 'UTF-8') ?></a>
         <nav class="navbar__links" aria-label="Main">
             <?php foreach ($links as $key => $link): ?>
                 <a
@@ -30,6 +30,6 @@ $links = [
                 ><?= htmlspecialchars($link['label'], ENT_QUOTES, 'UTF-8') ?></a>
             <?php endforeach; ?>
         </nav>
-        <a class="btn btn--primary btn--small" href="/login">Sign in</a>
+        <a class="btn btn--primary btn--small" href="<?= htmlspecialchars(url('/login'), ENT_QUOTES, 'UTF-8') ?>">Sign in</a>
     </div>
 </header>

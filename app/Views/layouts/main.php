@@ -21,7 +21,7 @@ $appName = $_ENV['APP_NAME'] ?? 'UCA Calorie Tracker';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?> · <?= htmlspecialchars($appName, ENT_QUOTES, 'UTF-8') ?></title>
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars(url('/assets/css/main.css'), ENT_QUOTES, 'UTF-8') ?>">
 </head>
 <body>
     <?php require __DIR__ . '/../partials/navbar.php'; ?>
