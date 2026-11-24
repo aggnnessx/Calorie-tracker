@@ -1,6 +1,6 @@
 <?php
 
-// Stand-alone DB connection test. Usage (CLI): php tests/db_test.php
+// Stand-alone DB connection test. Usage (CLI): php tests/db-test.php
 
 declare(strict_types=1);
 

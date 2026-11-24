@@ -7,6 +7,8 @@
 # Uploads (папка остаётся, файлы игнорируются)
 /public/uploads/*
 !/public/uploads/.gitkeep
+!/public/uploads/foods/
+/public/uploads/foods/*
 !/public/uploads/foods/.gitkeep
 
 # IDE
