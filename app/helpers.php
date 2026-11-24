@@ -31,6 +31,12 @@ function url(string $path = '/'): string
     return $base . $path;
 }
 
+/** Escape text for HTML. */
+function e(mixed $value): string
+{
+    return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
 /** Path used for routing, with the folder prefix removed. */
 function app_request_path(): string
 {

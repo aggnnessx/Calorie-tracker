@@ -4,79 +4,32 @@ declare(strict_types=1);
 
 define('ROOT_PATH', dirname(__DIR__));
 
-require ROOT_PATH . '/app/helpers.php';
-
-$envFile = ROOT_PATH . '/.env';
-if (is_file($envFile)) {
-    foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
-        $line = trim($line);
-        if ($line === '' || str_starts_with($line, '#') || !str_contains($line, '=')) {
-            continue;
-        }
-        [$name, $value] = explode('=', $line, 2);
-        $_ENV[trim($name)] = trim($value, " \t\"'");
+if (PHP_SAPI === 'cli-server') {
+    $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    $file = __DIR__ . $requestPath;
+    if ($requestPath !== '/' && is_file($file)) {
+        return false;
     }
 }
 
-$path = app_request_path();
+require ROOT_PATH . '/app/bootstrap.php';
 
-$pages = [
-    '/' => [
-        'title' => 'Home',
-        'currentNav' => 'menu',
-        'view' => 'home.php',
-    ],
-    '/diary' => [
-        'title' => 'Diary',
-        'currentNav' => 'diary',
-        'view' => 'placeholder.php',
-        'heading' => 'Food diary',
-        'message' => 'Breakfast, lunch, dinner, and snacks for the selected day will be logged here.',
-    ],
-    '/goals' => [
-        'title' => 'Goals',
-        'currentNav' => 'goals',
-        'view' => 'placeholder.php',
-        'heading' => 'Nutrition goals',
-        'message' => 'Calorie and macro targets calculated from the student profile will show here.',
-    ],
-    '/weight' => [
-        'title' => 'Weight',
-        'currentNav' => 'weight',
-        'view' => 'placeholder.php',
-        'heading' => 'Weight log',
-        'message' => 'One weigh-in per day will be recorded here.',
-    ],
-    '/login' => [
-        'title' => 'Sign in',
-        'currentNav' => '',
-        'view' => 'placeholder.php',
-        'heading' => 'Sign in',
-        'message' => 'Student and admin sign-in will use this page.',
-    ],
-];
+use App\Controllers\AuthController;
+use App\Controllers\PageController;
+use App\Core\Router;
 
-if (!isset($pages[$path])) {
-    http_response_code(404);
-    $title = 'Not found';
-    $currentNav = '';
-    $heading = 'Page not found';
-    $message = 'That address is not part of the app yet.';
-    ob_start();
-    require ROOT_PATH . '/app/Views/placeholder.php';
-    $content = ob_get_clean();
-    require ROOT_PATH . '/app/Views/layouts/main.php';
-    return;
-}
+$router = new Router();
+$pages = new PageController();
+$auth = new AuthController();
 
-$page = $pages[$path];
-$title = $page['title'];
-$currentNav = $page['currentNav'];
-$heading = $page['heading'] ?? '';
-$message = $page['message'] ?? '';
+$router->get('/', [$pages, 'home']);
+$router->get('/diary', [$pages, 'diary']);
+$router->get('/goals', [$pages, 'goals']);
+$router->get('/weight', [$pages, 'weight']);
 
-ob_start();
-require ROOT_PATH . '/app/Views/' . $page['view'];
-$content = ob_get_clean();
+$router->get('/login', [$auth, 'login']);
+$router->post('/login', [$auth, 'login']);
+$router->get('/register', [$auth, 'register']);
+$router->post('/register', [$auth, 'register']);
 
-require ROOT_PATH . '/app/Views/layouts/main.php';
+$router->dispatch();
