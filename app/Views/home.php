@@ -13,7 +13,7 @@ declare(strict_types=1);
         <section class="card">
             <h2 class="card__title">Log a meal</h2>
             <p class="card__text">Pick a meal and how many portions you ate.</p>
-            <form class="form" action="/" method="get">
+            <form class="form" action="<?= htmlspecialchars(url('/'), ENT_QUOTES, 'UTF-8') ?>" method="get">
                 <div class="form__row">
                     <div class="form__field">
                         <label class="form__label" for="meal">Meal</label>
@@ -36,7 +36,7 @@ declare(strict_types=1);
                 </div>
                 <div class="btn-row">
                     <button class="btn btn--primary" type="submit">Save meal</button>
-                    <a class="btn btn--secondary" href="/">Cancel</a>
+                    <a class="btn btn--secondary" href="<?= htmlspecialchars(url('/'), ENT_QUOTES, 'UTF-8') ?>">Cancel</a>
                 </div>
             </form>
         </section>

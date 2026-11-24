@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 define('ROOT_PATH', dirname(__DIR__));
 
+require ROOT_PATH . '/app/helpers.php';
+
 $envFile = ROOT_PATH . '/.env';
 if (is_file($envFile)) {
     foreach (file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
@@ -16,8 +18,7 @@ if (is_file($envFile)) {
     }
 }
 
-$path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-$path = rtrim($path, '/') ?: '/';
+$path = app_request_path();
 
 $pages = [
     '/' => [
