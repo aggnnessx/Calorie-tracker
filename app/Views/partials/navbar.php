@@ -20,7 +20,20 @@ if ($signedIn) {
 ?>
 <header class="navbar">
     <div class="container navbar__inner">
-        <a class="navbar__brand" href="<?= e(url('/')) ?>"><?= e($appName) ?></a>
+        <a class="navbar__brand" href="<?= e(url('/')) ?>">
+            <svg class="navbar__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <rect width="32" height="32" rx="10" fill="#FFE8D6"/>
+                <path d="M8 14c0-2.2 3.6-4 8-4s8 1.8 8 4v1.2c0 4.4-3.6 8-8 8s-8-3.6-8-8V14Z" stroke="#D9560C" stroke-width="2"/>
+                <path d="M10 14.5h12" stroke="#1F6F54" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <?= e($appName) ?>
+        </a>
+        <input class="navbar__toggle" id="nav-toggle" type="checkbox">
+        <label class="navbar__burger" for="nav-toggle" aria-label="Open menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </label>
         <nav class="navbar__links" aria-label="Main">
             <?php foreach ($links as $key => $link): ?>
                 <a
@@ -35,10 +48,10 @@ if ($signedIn) {
                 <span class="navbar__user"><?= e($user['full_name'] ?? '') ?></span>
                 <form class="navbar__logout" action="<?= e(url('/logout')) ?>" method="post">
                     <?= csrf_field() ?>
-                    <button class="btn btn--secondary btn--small" type="submit">Log out</button>
+                    <button class="btn btn--ghost btn--small" type="submit">Log out</button>
                 </form>
             <?php else: ?>
-                <a class="btn btn--secondary btn--small" href="<?= e(url('/register')) ?>">Create account</a>
+                <a class="btn btn--ghost btn--small" href="<?= e(url('/register')) ?>">Create account</a>
                 <a class="btn btn--primary btn--small" href="<?= e(url('/login')) ?>">Sign in</a>
             <?php endif; ?>
         </div>

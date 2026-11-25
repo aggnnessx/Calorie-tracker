@@ -7,6 +7,7 @@ $old = $old ?? ['email' => ''];
 ?>
 <div class="auth-page">
     <header class="auth-page__intro">
+        <p class="eyebrow">UCA students</p>
         <h1 class="page-title">Sign in</h1>
         <p class="lead">Use your campus email and password.</p>
     </header>
