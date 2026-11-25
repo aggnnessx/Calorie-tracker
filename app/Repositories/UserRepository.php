@@ -40,6 +40,29 @@ final class UserRepository
         return $row ?: null;
     }
 
+    /** @return array<string, mixed>|null */
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->pdo->prepare(
+            'SELECT id, email, password_hash, full_name, role, is_active, onboarding_done, created_at, last_login_at
+             FROM users
+             WHERE id = :id
+             LIMIT 1'
+        );
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch();
+
+        return $row ?: null;
+    }
+
+    public function markLastLogin(int $id): void
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE users SET last_login_at = CURRENT_TIMESTAMP WHERE id = :id'
+        );
+        $stmt->execute(['id' => $id]);
+    }
+
     public function create(string $email, string $passwordHash, string $fullName, string $role = 'student'): int
     {
         $stmt = $this->pdo->prepare(

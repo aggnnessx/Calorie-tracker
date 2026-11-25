@@ -8,11 +8,12 @@ $old = $old ?? ['full_name' => '', 'email' => ''];
 <div class="auth-page">
     <header class="auth-page__intro">
         <h1 class="page-title">Create account</h1>
-        <p class="lead">Student accounts start here. The form is ready; saving to the database comes next.</p>
+        <p class="lead">Student accounts start here. Staff accounts are created by an admin.</p>
     </header>
 
     <section class="card auth-card">
         <form class="form form--auth" action="<?= e(url('/register')) ?>" method="post" novalidate>
+            <?= csrf_field() ?>
             <div class="form__field">
                 <label class="form__label" for="full_name">Full name</label>
                 <input

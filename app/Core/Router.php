@@ -40,6 +40,10 @@ final class Router
             return;
         }
 
+        if ($method === 'POST') {
+            Csrf::verify();
+        }
+
         $handler();
     }
 

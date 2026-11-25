@@ -223,8 +223,20 @@ a {
 .navbar__actions {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.45rem;
     margin-left: auto;
+}
+
+.navbar__user {
+    color: var(--color-muted);
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.navbar__logout {
+    display: inline;
+    margin: 0;
 }
 
 /* Forms */
@@ -379,6 +391,15 @@ a {
 
     .navbar__actions .btn {
         flex: 1;
+    }
+
+    .navbar__logout {
+        flex: 1;
+        display: flex;
+    }
+
+    .navbar__logout .btn {
+        width: 100%;
     }
 
     .auth-card {
