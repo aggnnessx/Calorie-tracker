@@ -7,6 +7,7 @@ $old = $old ?? ['full_name' => '', 'email' => ''];
 ?>
 <div class="auth-page">
     <header class="auth-page__intro">
+        <p class="eyebrow">New on campus</p>
         <h1 class="page-title">Create account</h1>
         <p class="lead">Student accounts start here. Staff accounts are created by an admin.</p>
     </header>
