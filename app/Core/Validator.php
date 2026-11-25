@@ -66,6 +66,12 @@ final class Validator
         return $this;
     }
 
+    public function addError(string $field, string $message): self
+    {
+        $this->add($field, $message);
+        return $this;
+    }
+
     public function fails(): bool
     {
         return $this->errors !== [];

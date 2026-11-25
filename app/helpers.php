@@ -37,6 +37,19 @@ function e(mixed $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+/** Hidden CSRF field for POST forms. */
+function csrf_field(): string
+{
+    return '<input type="hidden" name="_csrf" value="' . e(\App\Core\Csrf::token()) . '">';
+}
+
+/** Send the browser to another app path and stop. */
+function redirect(string $path, int $status = 302): never
+{
+    header('Location: ' . url($path), true, $status);
+    exit;
+}
+
 /** Path used for routing, with the folder prefix removed. */
 function app_request_path(): string
 {

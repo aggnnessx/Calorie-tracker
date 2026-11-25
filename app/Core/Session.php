@@ -12,6 +12,11 @@ final class Session
             return;
         }
 
+        if (headers_sent()) {
+            $_SESSION = $_SESSION ?? [];
+            return;
+        }
+
         $lifetime = (int) ($_ENV['SESSION_LIFETIME'] ?? 7200);
         $base = app_base_path();
         $cookiePath = $base === '' ? '/' : $base . '/';
@@ -24,6 +29,35 @@ final class Session
             'samesite' => 'Lax',
         ]);
         session_start();
+    }
+
+    public static function regenerate(): void
+    {
+        self::start();
+        if (session_status() === PHP_SESSION_ACTIVE && !headers_sent()) {
+            session_regenerate_id(true);
+        }
+    }
+
+    public static function forget(): void
+    {
+        self::start();
+        $_SESSION = [];
+        if (!headers_sent() && ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params['path'] ?? '/',
+                $params['domain'] ?? '',
+                (bool) ($params['secure'] ?? false),
+                (bool) ($params['httponly'] ?? true)
+            );
+        }
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
     }
 
     public static function flash(string $type, string $message): void

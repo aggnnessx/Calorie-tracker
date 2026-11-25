@@ -8,11 +8,12 @@ $old = $old ?? ['email' => ''];
 <div class="auth-page">
     <header class="auth-page__intro">
         <h1 class="page-title">Sign in</h1>
-        <p class="lead">Use the email you will register with. Saving the session comes in a later step.</p>
+        <p class="lead">Use your campus email and password.</p>
     </header>
 
     <section class="card auth-card">
         <form class="form form--auth" action="<?= e(url('/login')) ?>" method="post" novalidate>
+            <?= csrf_field() ?>
             <div class="form__field">
                 <label class="form__label" for="email">Email</label>
                 <input
