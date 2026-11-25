@@ -885,15 +885,24 @@ h3 {
     .navbar__toggle:checked ~ .navbar__links,
     .navbar__toggle:checked ~ .navbar__actions {
         display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 8px 0 16px;
     }
 
     .navbar__inner {
         flex-wrap: wrap;
     }
 
+    .navbar__link {
+        display: block;
+    }
+
     .navbar__actions .btn,
     .navbar__logout {
-        flex: 1;
+        width: 100%;
+        flex: none;
     }
 
     .navbar__logout {
