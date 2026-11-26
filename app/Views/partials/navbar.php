@@ -22,9 +22,15 @@ if ($signedIn) {
     <div class="container navbar__inner">
         <a class="navbar__brand" href="<?= e(url('/')) ?>">
             <svg class="navbar__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                <rect width="32" height="32" rx="10" fill="#FFE8D6"/>
-                <path d="M8 14c0-2.2 3.6-4 8-4s8 1.8 8 4v1.2c0 4.4-3.6 8-8 8s-8-3.6-8-8V14Z" stroke="#D9560C" stroke-width="2"/>
-                <path d="M10 14.5h12" stroke="#1F6F54" stroke-width="2" stroke-linecap="round"/>
+                <rect width="32" height="32" rx="8" fill="url(#mark-ember)"/>
+                <path d="M16 7.5c.2 2.4-.8 3.6.2 5.4 1 1.8.4 4.2-2.6 4.6-2.2.3-3.4-1.5-2.6-3.2.3 1.2 0 2-1 2.8C8.8 15.4 10.2 10.6 16 7.5Z" fill="#fff"/>
+                <defs>
+                    <radialGradient id="mark-ember" cx="0.3" cy="0.3" r="0.85">
+                        <stop offset="0" stop-color="#ff6b35"/>
+                        <stop offset="0.45" stop-color="#d62828"/>
+                        <stop offset="1" stop-color="#6a0f0f"/>
+                    </radialGradient>
+                </defs>
             </svg>
             <?= e($appName) ?>
         </a>
